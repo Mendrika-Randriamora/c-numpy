@@ -1,6 +1,6 @@
 #include "numpy.h"
 
-Array* array(int data[], int shape[])
+Array* array(void *data, int shape[], DType dtype)
 {
     Array *arr = malloc(sizeof(Array));
 
@@ -9,18 +9,40 @@ Array* array(int data[], int shape[])
     {
         arr->shape[k] = shape[k];
     }
+
+    arr->dtype = dtype;
+
+    size_t type_size;
+
+    switch (arr->dtype)
+    {
+        case INT:
+            type_size = sizeof(int);
+            break;
+        
+        case FLOAT:
+            type_size = sizeof(float);
+            break;
+    }
     
-    arr->lines = malloc(shape[0] * sizeof(int *));
+    arr->lines = malloc(shape[0] * sizeof(void *));
 
     int index = 0;
 
     for (int i = 0; i < shape[0]; i++)
     {
-        int *ln = malloc(shape[1] * sizeof(int));
+        void *ln = malloc(shape[1] * type_size);
 
         for (int j = 0; j < shape[1]; j++)
         {
-            ln[j] = data[j + index];
+            switch (dtype) {
+                case INT:
+                    ((int*)ln)[j] = ((int*)data)[j + index];
+                    break;
+                case FLOAT:
+                    ((float*)ln)[j] = ((float*)data)[j + index];
+                    break;
+            }
         }
 
         arr->lines[i] = ln;
@@ -38,7 +60,11 @@ void print_array(Array *arr)
     {
         for (int j = 0; j < arr->shape[1]; j++)
         {
-            printf("%d ", arr->lines[i][j]);
+            switch (arr->dtype)
+            {
+                case INT:    printf("%d ", ((int*)arr->lines[i])[j]); break;
+                case FLOAT:  printf("%.2f ", ((float*)arr->lines[i])[j]); break;
+            }
         }
 
         printf("\n");

@@ -8,16 +8,16 @@ int main()
     int data[] = {1, 2, 3, 4, 5, 6};
 
     printf("Array 1 : \n");
-    arr = array(data, shape);
+    arr = array(data, shape, INT);
 
     print_array(arr); 
 
     printf("============\n");
     printf("Array 2 : \n");
-    int shape1[] = {4, 4};
-    int data1[] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+    int shape1[] = {2, 2};
+    float data1[] = {2.1, 2.2, 2.3, 2.4};
 
-    Array *arr1 = array(data1, shape1);
+    Array *arr1 = array(data1, shape1, FLOAT);
 
     print_array(arr1);
     
