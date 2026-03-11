@@ -18,7 +18,7 @@ typedef struct {
     int *shape;
     int dtype;
 } Array;
-``
+```
 
 Where:
 - lines → pointers to each row
