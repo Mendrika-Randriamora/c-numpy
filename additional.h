@@ -15,4 +15,23 @@ int* range(int n)
     return t;
 }
 
+float* linspace(int from, int to, int n)
+{
+    float *t = (float *)malloc(n * sizeof(float));
+
+    float step = ((float)(to - from) / n);
+
+    int i = 0;
+    float j = (float)from;
+
+    while (i < n && j < to)
+    {
+        *(t + i) = j;
+        i++;
+        j += step;
+    } 
+    
+    return t;
+}
+
 #endif
