@@ -62,7 +62,7 @@ void print_array(Array *arr)
         {
             switch (arr->dtype)
             {
-                case INT:    printf("%d ", ((int*)arr->lines[i])[j]); break;
+                case INT:    printf("%2d ", ((int*)arr->lines[i])[j]); break;
                 case FLOAT:  printf("%.2f ", ((float*)arr->lines[i])[j]); break;
             }
         }
