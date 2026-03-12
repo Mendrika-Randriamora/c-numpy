@@ -117,6 +117,34 @@ Array* zeros_like(Array *arr)
     return zeros(arr->shape, arr->dtype);
 }
 
+Array* eye(int shape[], DType type)
+{
+    if (shape[0] != shape[1]) {
+        fprintf(stderr, "Eye matrix need a square matrix");
+        exit(1);
+    }
+    DataT dt;
+    dt.Int = 1;
+    dt.Float = 1.0;
+
+    Array* temp = zeros(shape, type);
+
+    for (int i = 0; i < shape[0]; i++)
+    {
+        switch (type)
+        {
+            case INT:
+               ((int *)temp->lines[i])[i] = dt.Int;
+                break;
+            
+            case FLOAT:
+                ((float *)temp->lines[i])[i] = dt.Float;
+        }
+    }
+    
+    return temp;
+}
+
 void print_array(Array *arr)
 {
     for (int i = 0; i < arr->shape[0]; i++)
