@@ -112,6 +112,11 @@ Array* zeros(int shape[], DType type)
     
 }
 
+Array* zeros_like(Array *arr)
+{
+    return zeros(arr->shape, arr->dtype);
+}
+
 void print_array(Array *arr)
 {
     for (int i = 0; i < arr->shape[0]; i++)
