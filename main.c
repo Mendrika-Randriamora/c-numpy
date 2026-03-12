@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "numpy.h"
+#include "additional.h"
 
 int main()
 {
@@ -20,6 +21,15 @@ int main()
     Array *arr1 = array(data1, shape1, FLOAT);
 
     print_array(arr1);
+
+    printf("============\n");
+    printf("Array 3 : \n");
+    int shape2[] = {5, 5};
+    int *data2 = range(5 * 5);
+
+    Array *arr2 = array(data2, shape2, INT);
+
+    print_array(arr2);
     
     free_array(arr);
     free_array(arr1);
