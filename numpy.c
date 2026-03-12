@@ -54,6 +54,64 @@ Array* array(void *data, int shape[], DType dtype)
     return arr;
 }
 
+
+void* gen(int shape[], DType type, DataT dt) 
+{
+    size_t type_size;
+    switch (type)
+    {
+        case INT: type_size = sizeof(int); break;
+        case FLOAT: type_size = sizeof(float); break;
+    }
+
+    int dim = shape[0] * shape[1];
+    void *data = malloc(dim * type_size);  
+
+   if (type == INT) {
+        int *ptr = data;
+        for (int i = 0; i < dim; i++)
+        {
+            ptr[i] = dt.Int;
+        }
+    
+   } else {
+        float *ptr = data;
+        for (int i = 0; i < dim; i++)
+        {
+            ptr[i] = dt.Float;
+        }
+        
+   }
+
+    return data;
+    
+}
+
+Array* ones(int shape[], DType type) 
+{
+    DataT dt;
+    dt.Int = 1;
+    dt.Float = 1.0;
+
+    void * data = gen(shape, type, dt);
+
+    return array(data, shape, type);
+    
+}
+
+Array* zeros(int shape[], DType type) 
+{
+
+    DataT dt;
+    dt.Int = 0;
+    dt.Float = 0.0;
+
+    void * data = gen(shape, type, dt);
+
+    return array(data, shape, type);
+    
+}
+
 void print_array(Array *arr)
 {
     for (int i = 0; i < arr->shape[0]; i++)

@@ -10,6 +10,13 @@ typedef enum
     FLOAT
 } DType;
 
+typedef struct 
+{
+    int Int;
+    float Float;
+} DataT;
+
+
 typedef struct array
 {
     void **lines;
@@ -19,6 +26,9 @@ typedef struct array
 
 
 Array* array(void *data, int shape[], DType dtype);
+Array* ones(int shape[], DType type);
+Array* zeros(int shape[], DType type);
+
 void print_array(Array *arr);
 void free_array(Array *arr);
 
