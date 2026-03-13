@@ -230,6 +230,69 @@ Array* sum(Array *arr1, Array *arr2)
 }
 
 
+Array* dot(Array *arr1, Array *arr2)
+{
+    if(arr1->shape[1] != arr2->shape[0]) {
+        fprintf(stderr, "Can't to calculate dot");
+        exit(1);
+    }
+
+    Array *dot = malloc(sizeof(Array));
+    dot->shape = malloc(2 * sizeof(int));
+
+    dot->shape[0] = arr1->shape[0];
+    dot->shape[1] = arr2->shape[1];
+
+    if(arr1->dtype == FLOAT || arr2->dtype == FLOAT)
+        dot->dtype = FLOAT;
+    else    
+        dot->dtype = INT;
+
+    size_t type_size = (dot->dtype == INT) ? sizeof(int) : sizeof(float);
+    
+    dot->lines = malloc(dot->shape[0] * sizeof(void *));
+
+    for (int i = 0; i < dot->shape[0]; i++)
+    {
+        void *ln = malloc(dot->shape[1] * type_size);
+        dot->lines[i] = ln;
+
+        for (int j = 0; j < dot->shape[1]; j++)
+        {
+            int sum_int = 0;
+            float sum_float = 0.0;
+
+            for (int k = 0; k < arr1->shape[1]; k++)
+            {
+                switch (dot->dtype)
+                {
+                    case INT:
+                        sum_int += ((int *)arr1->lines[i])[k] * ((int *)arr2->lines[k])[j];
+                        break;
+                    case FLOAT:
+                        sum_float += ((float *)arr1->lines[i])[k] * ((float *)arr2->lines[k])[j];
+                        break;
+                    }
+            }
+
+            switch (dot->dtype)
+            {
+                case INT:
+                    ((int *)dot->lines[i])[j] = sum_int;
+                    break;
+                case FLOAT:
+                    ((float *)dot->lines[i])[j] = sum_float;
+                    break;
+            }
+            
+        }
+        
+    }
+    printf("(%d, %d)\n", dot->shape[0], dot->shape[1]);
+    return dot;
+    
+} 
+
 // ==================================================== //
 
 void print_array(Array *arr)
