@@ -293,6 +293,43 @@ Array* dot(Array *arr1, Array *arr2)
     
 } 
 
+Array* T(Array *arr)
+{
+    Array *t = malloc(sizeof(Array));
+    t->shape = malloc(2 * sizeof(int));
+    t->shape[0] = arr->shape[1];
+    t->shape[1] = arr->shape[0];
+    t->dtype = arr->dtype;
+
+    size_t type_size = (arr->dtype == INT) ? sizeof(int) : sizeof(float);
+
+    t->lines = malloc(t->shape[0] * sizeof(void *));
+
+    for (int i = 0; i < t->shape[0]; i++)
+    {
+        void *ln = malloc(t->shape[1] * type_size);
+
+        for (int j = 0; j < t->shape[1]; j++)
+        {
+            switch (t->dtype)
+            {
+                case INT:
+                    ((int *)ln)[j] = ((int *)arr->lines[j])[i];
+                    break;
+                case FLOAT:
+                    ((float *)ln)[j] = ((float *)arr->lines[j])[i];
+                    break;
+            }
+        }
+
+        t->lines[i] = ln;
+        
+    }
+
+    return t;
+    
+}
+
 // ==================================================== //
 
 void print_array(Array *arr)
