@@ -35,6 +35,8 @@ void add_nbr(Array *arr, int a, float b);
 Array* sum(Array *arr1, Array *arr2);
 Array* dot(Array *arr1, Array *arr2);
 
+Array* T(Array *arr);
+
 void print_array(Array *arr);
 void free_array(Array *arr);
 
