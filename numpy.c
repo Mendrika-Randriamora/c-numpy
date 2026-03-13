@@ -145,6 +145,93 @@ Array* eye(int shape[], DType type)
     return temp;
 }
 
+// ================= Arithmetic ======================= //
+
+void add_nbr(Array *arr, int a, float b)
+{
+    if (a != 0 && b == 0.0 && arr->dtype == INT) {
+        for (int i = 0; i < arr->shape[0]; i++)
+        {
+            for (int j = 0; j < arr->shape[1]; j++)
+            {
+                ((int *)arr->lines[i])[j] += a;
+            }
+            
+        }
+        
+    } else if (b != 0.0 && a == 0 && arr->dtype == FLOAT)
+    {
+        for (int i = 0; i < arr->shape[0]; i++)
+        {
+            for (int j = 0; j < arr->shape[1]; j++)
+            {
+                ((float *)arr->lines[i])[j] += b;
+            }
+            
+        }
+        
+    }
+    
+}
+
+Array* sum(Array *arr1, Array *arr2)
+{
+    if (arr1->shape[0] != arr2->shape[0] || arr1->shape[1] != arr2->shape[1]) {
+        fprintf(stderr, "Need same shape to have sum");
+        exit(1);
+    }
+
+    DType type;
+
+    if (arr1->dtype == FLOAT || arr2->dtype == FLOAT)
+        type = FLOAT;
+    else    
+        type = INT;
+
+    size_t type_size = (type == INT) ? sizeof(int) : sizeof(float);
+
+    Array *T = malloc(sizeof(Array));
+    T->dtype = type;
+
+    T->shape = malloc(2 * sizeof(int));
+
+    for (int i = 0; i < 2; i++)
+    {
+        T->shape[i] = arr1->shape[i];
+    }
+    
+    T->lines = malloc(T->shape[0] * sizeof(void *));
+
+    for (int i = 0; i < T->shape[0]; i++)
+    {
+        void *ln = malloc(T->shape[1] * type_size);
+        T->lines[i] = ln;
+
+        for (int j = 0; j < T->shape[1]; j++)
+        {
+            switch (T->dtype)
+            {
+                case INT: 
+                    ((int *)T->lines[i])[j] = ((int *)arr1->lines[i])[j] + ((int *)arr2->lines[i])[j];
+                    break;
+
+                case FLOAT:
+                    ((float *)T->lines[i])[j] = ((float *)arr1->lines[i])[j] + ((float *)arr2->lines[i])[j];
+                    break;
+            }
+        }
+
+        
+    }
+
+    return T;
+    
+
+}
+
+
+// ==================================================== //
+
 void print_array(Array *arr)
 {
     for (int i = 0; i < arr->shape[0]; i++)

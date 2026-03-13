@@ -31,6 +31,9 @@ Array* zeros(int shape[], DType type);
 Array* zeros_like(Array *arr);
 Array* eye(int shape[], DType type);
 
+void add_nbr(Array *arr, int a, float b);
+Array* sum(Array *arr1, Array *arr2);
+
 void print_array(Array *arr);
 void free_array(Array *arr);
 
