@@ -4,13 +4,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "numpy.h"
-typedef enum 
+typedef enum
 {
     INT,
     FLOAT
 } DType;
 
-typedef struct 
+typedef struct
 {
     int Int;
     float Float;
@@ -19,19 +19,18 @@ typedef struct
 
 typedef struct array
 {
-    void **lines;
-    int *shape; 
-    DType dtype;
+    float **lines;
+    int *shape;
 } Array;
 
 
-Array* array(void *data, int shape[], DType dtype);
-Array* ones(int shape[], DType type);
-Array* zeros(int shape[], DType type);
+Array* array(float *data, int shape[]);
+Array* ones(int shape[]);
+Array* zeros(int shape[]);
 Array* zeros_like(Array *arr);
-Array* eye(int shape[], DType type);
+Array* eye(int shape[]);
 
-void add_nbr(Array *arr, int a, float b);
+void add_nbr(Array *arr, float b);
 Array* sum(Array *arr1, Array *arr2);
 Array* dot(Array *arr1, Array *arr2);
 

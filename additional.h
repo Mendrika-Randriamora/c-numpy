@@ -4,9 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int* range(int n)
+float* range(int n)
 {
-    int *t = (int *)malloc(n * sizeof(int));
+    float *t = (float *)malloc(n * sizeof(float));
 
     for (int i = 0; i < n; i++)
     {
@@ -29,8 +29,8 @@ float* linspace(int from, int to, int n)
         *(t + i) = j;
         i++;
         j += step;
-    } 
-    
+    }
+
     return t;
 }
 
