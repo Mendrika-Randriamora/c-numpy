@@ -16,7 +16,6 @@ The Array structure represents a 2D matrix.
 typedef struct {
     void **lines;
     int *shape;
-    int dtype;
 } Array;
 ```
 
