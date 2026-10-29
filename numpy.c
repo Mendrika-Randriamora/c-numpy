@@ -1,4 +1,6 @@
 #include "numpy.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include <threads.h>
 
 Array* array(float *data, int shape[])
@@ -204,6 +206,34 @@ Array* T(Array *arr)
 
     return t;
 
+}
+
+Array* mask(Array *arr, CoType tp, float value)
+{
+    Array *t = zeros_like(arr);
+
+    for (int i = 0; i < arr->shape[0]; i++) {
+        for (int j = 0; j < arr->shape[1]; j++) {
+            switch (tp) {
+                case BT:
+                    if ((arr->lines[i])[j] >= value) (t->lines[i])[j] = 1.0;
+                    break;
+                case LT:
+                    if ((arr->lines[i])[j] <= value) (t->lines[i])[j] = 1.0;
+                    break;
+                case EQ:
+                    if ((arr->lines[i])[j] == value) (t->lines[i])[j] = 1.0;
+                    break;
+
+                default:
+                    fprintf(stderr, "Undefined type of mask");
+                    exit(1);
+
+            }
+        }
+    }
+
+    return t;
 }
 
 // ==================================================== //

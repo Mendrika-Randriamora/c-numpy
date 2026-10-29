@@ -4,11 +4,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "numpy.h"
+#include <stdbool.h>
+
 typedef enum
 {
     INT,
     FLOAT
 } DType;
+
+typedef enum
+{
+    BT,
+    LT,
+    EQ
+} CoType;
 
 typedef struct
 {
@@ -35,6 +44,7 @@ Array* sum(Array *arr1, Array *arr2);
 Array* dot(Array *arr1, Array *arr2);
 
 Array* T(Array *arr);
+Array* mask(Array *arr, CoType tp, float value);
 
 void print_array(Array *arr);
 void free_array(Array *arr);
