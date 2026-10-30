@@ -22,7 +22,9 @@ typedef struct {
 Where:
 - lines → pointers to each row
 - shape → [rows, columns]
-- dtype → data type stored in the array
+- dtype → data type stored in the array (**Now one type only -> float**)
+
+### READ ALL DOCS IN DOCS.md
 
 # License
 MIT License
