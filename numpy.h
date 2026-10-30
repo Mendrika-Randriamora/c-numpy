@@ -1,39 +1,34 @@
 #ifndef NUMPY_H
 #define NUMPY_H
 
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "numpy.h"
 #include <stdbool.h>
 
+/**
+ * This is a enum for function to masked array
+ * We use it when we create a mask of matrix like a parameter to know the 
+ * type of mask (condition of mask)
+ */
 typedef enum
 {
-    INT,
-    FLOAT
-} DType;
-
-typedef enum
-{
-    BT,
-    LT,
-    EQ
+    BT, // Better than
+    LT, // Less than
+    EQ // Equal
 } CoType;
 
-typedef struct
-{
-    int Int;
-    float Float;
-} DataT;
-
-
+/**
+ * Structure of matrix
+ */
 typedef struct array
 {
-    float **lines;
-    int *shape;
+    float **lines; // All values of our matrix line per line
+    int *shape; // Header of matrix
 } Array;
 
-
-Array* array(float *data, int shape[]);
+Array* array(float *data, size_t len, int shape[]);
 Array* ones(int shape[]);
 Array* zeros(int shape[]);
 Array* zeros_like(Array *arr);
